@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./assets/css/style.css" />
+    <title>Weather Dashboard</title>
+  </head>
+
+  <body>
+    <header class="hero">
+      <h1>Weather Dashboard</h1>
+    </header>
+
+    <div class="container">
+      <div class="row">
+        <div class="col-3">
+            <div class="card">
+              <h3 class="searchCity">Search for a City:</h3>
+              <form id="city-form" class="card-body">
+                <input name="cityname" id="cityname" type="text" autofocus="true" class="cityname" />
+                <button type="submit" class="btn">Get City</button>
+              </form>
+            </div>
+            <div id="history-container" class="row history-group"></div>
+        </div>
+        <div class="col-9 justify-content-end">
+          <h2 class="cityName"></h2>
+          <h2 class="date"></h2>
+          <img class="cwIcon"></img>
+          <div class="wConditions">
+            <p class="temp">Temperature:</p>
+            <p class="humid">Humidity:</p>
+            <p class="windSpeed">Wind Speed:</p>
+            <p class="UVindex">UV Index:</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-9 justify-content-end">
+          <div><h3>5-Day Forecast:</h3></div>
+          <div id="5day" class="card-now 5day-forecast"></div>
+        </div>
+      </div>
+    </div>
+
+
+
+  <!-- Script file -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+    <script src="./assets/js/script.js"></script>
+  </body>
+
+</html>
