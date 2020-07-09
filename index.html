@@ -24,27 +24,30 @@
                 <input name="cityname" id="cityname" type="text" autofocus="true" class="cityname" />
                 <button type="submit" class="btn">Get City</button>
               </form>
-            </div>
-            <div id="history-container" class="row history-group"></div>
+              <div id="history-container" class="row history-group"></div>
+            </div>  
         </div>
-        <div class="col-9 justify-content-end">
+        <div class="col-9 card justify-content-end">
           <h2 class="cityName"></h2>
-          <h2 class="date"></h2>
           <img class="cwIcon"></img>
           <div class="wConditions">
-            <p class="temp">Temperature:</p>
-            <p class="humid">Humidity:</p>
-            <p class="windSpeed">Wind Speed:</p>
-            <p class="UVindex">UV Index:</p>
+            <p class="temp"></p>
+            <p class="humid"></p>
+            <p class="wind"></p>
+            <p class="UV"></p>
           </div>
         </div>
       </div>
 
-      <div class="row">
-        <div class="col-9 justify-content-end">
-          <div><h3>5-Day Forecast:</h3></div>
-          <div id="5day" class="card-now 5day-forecast"></div>
-        </div>
+      <div class="row col-9">
+        <h3>5-Day Forecast:</h3>
+      </div>
+      <div class="row col-9 card"></div>
+          <div id="day1" class="d-inline day-forecast"></div>
+          <div id="day2" class="d-inline day-forecast"></div>
+          <div id="day3" class="d-inline day-forecast"></div>
+          <div id="day4" class="d-inline day-forecast"></div>
+          <div id="day5" class="d-inline day-forecast"></div>
       </div>
     </div>
 

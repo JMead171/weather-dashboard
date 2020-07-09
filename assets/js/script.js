@@ -8,7 +8,16 @@ const api5day = "http://api.openweathermap.org/data/2.5/forecast?lat=";
 const api5daylon = "&lon=";
 const api5daykey = "&appid=93da93c3fcfd7a2c52246c945a8f72df";
 
-
+let cityNameEl = document.querySelector(".cityName");
+let tempEl = document.querySelector(".temp");
+let humidEl = document.querySelector(".humid");
+let windEl = document.querySelector(".wind");
+let uvEl = document.querySelector(".UV");
+let day1DivEl = document.querySelector("#day1");
+let day2DivEl = document.querySelector("#day2");
+let day3DivEl = document.querySelector("#day3");
+let day4DivEl = document.querySelector("#day4");
+let day5DivEl = document.querySelector("#day5");
 
 let city = "Brielle";
 
@@ -25,24 +34,31 @@ let getWeather = function(city) {
     fetch(apiUrl).then(function(response) {
         if (response.ok) {
             response.json().then(function(data) {    
+                           
                 // get current date from fetch api
                 let dateToday = data.dt;
                 console.log(dateToday);
                 let displayDate = moment.unix(dateToday).format("M/D/YYYY");
                 console.log(displayDate);
+                cityNameEl.textContent = city + " (" + displayDate + ")";
                 // weather icon
                 let icode = data.weather[0].icon;
                 console.log(icode);
                 //getWeatherIcon(icode);
+
+
                 // temp
                 let fahrtemp = Math.floor((((data.main.temp - 273.15) * 1.8000) + 32));
                 console.log(fahrtemp);
+                tempEl.textContent = "Temperature: " + fahrtemp + "&#8457;";
                 //humidity
                 let humidity = data.main.humidity;
                 console.log(humidity);
+                humidEl.textContent = "Humidity: " + humidity + "%";
                 // wind
                 let windSpeed = data.wind.speed;
                 console.log(windSpeed);
+                windEl.textContent = "Wind Speed: " + windSpeed + " MPH";
                 // UV index
                 let lat = data.coord.lat;
                 let lon = data.coord.lon;
@@ -83,7 +99,7 @@ let getUVindex = function(lat, lon) {
         if (response.ok) {
             response.json().then(function(data) {    
                 let uvIndex =  data.value;
-                console.log(uvIndex);
+                uvEl.textContent = "UV Index: " + uvIndex;
             });
         } else {
             alert("Error: " + response.statusText);
@@ -105,69 +121,60 @@ let get5day = function(lat, lon, dateToday) {
                 let datePlus3 = (datePlus2 + (60 * 60 * 24));
                 let datePlus4 = (datePlus3 + (60 * 60 * 24));
                 let datePlus5 = (datePlus4 + (60 * 60 * 24));
-                console.log(dateToday, " : ", datePlus2,datePlus3, datePlus4, datePlus5);
+                console.log(dateToday, ": ", datePlus1, datePlus2, datePlus3, datePlus4, datePlus5);
                 
-                //initialize
-                let d1 = 0, d2 = 0, d3 = 0, d4 = 0, d5 = 0;
-                let day5 = data.list.length - 1;
-                let date5 =  data.list[day5].dt;
-                let temp5 =  data.list[day5].main.temp;
-                let humd5 =  data.list[day5].main.humidity;
-                let icon5 =  data.list[day5].weather[i].icon;
-                console.log("INT: ", day5, date5, temp5, humd5, icon5);
-
+                // initialize
+                let date5 =  data.list[0].dt;
+                let day1El = document.createElement("h4");
+                document.getElementById("#day1").appendChild(day1El);
+                day1El.textContent  = date5;
+                
+                               
+                let temp5 =  data.list[0].main.temp;
+                let humd5 =  data.list[0].main.humidity;
+                let icon5 =  data.list[0].weather[0].icon;
+                //console.log("INT: ", day5, date5, temp5, humd5, icon5);
+                
                 for (let i = 0; i < data.list.length; i++) { 
-                    if (d1 = 0) {
-                        if (datePlus1 > data.list[i].dt) {
-                            d1++;
-                            let date1 =  data.list[i].dt;
-                            let temp1 =  data.list[i].main.temp;
-                            let humd1 =  data.list[i].main.humidity;
-                            let icon1 =  data.list[i].weather[i].icon;
-                            console.log("1: ", i, date1, temp1, humd1, icon1);
-                        }
+                    if (datePlus1 > data.list[i].dt) {
+                        let date1 =  data.list[i].dt;
+                        let temp1 =  data.list[i].main.temp;
+                        let humd1 =  data.list[i].main.humidity;
+                        let icon1 =  data.list[i].weather[0].icon;
                     }
-                    if (d2 = 0) {
-                        if (datePlus2 > data.list[i].dt) {
-                            d2++;
-                            let date2 =  data.list[i].dt;
-                            let temp2 =  data.list[i].main.temp;
-                            let humd2 =  data.list[i].main.humidity;
-                            let icon2 =  data.list[i].weather[i].icon;
-                            console.log("2: ", i, date2, temp2, humd2, icon2);
-                        }
+                    if (datePlus2 > data.list[i].dt) {
+                        let date2 =  data.list[i].dt;
+                        let temp2 =  data.list[i].main.temp;
+                        let humd2 =  data.list[i].main.humidity;
+                        let icon2 =  data.list[i].weather[0].icon;
                     }
-                    if (d3 = 0) {
-                        if (datePlus3 > data.list[i].dt) {
-                            d3++;
-                            let date3 =  data.list[i].dt;
-                            let temp3 =  data.list[i].main.temp;
-                            let humd3 =  data.list[i].main.humidity;
-                            let icon3 =  data.list[i].weather[i].icon;
-                            console.log("3: ", i, date3, temp3, humd3, icon3);
-                        }
+                    if (datePlus3 > data.list[i].dt) {
+                        let date3 =  data.list[i].dt;
+                        let temp3 =  data.list[i].main.temp;
+                        let humd3 =  data.list[i].main.humidity;
+                        let icon3 =  data.list[i].weather[0].icon;
                     }
-                    if (d4 = 0) {
-                        if (datePlus4 > data.list[i].dt) {
-                            d4++;
-                            let date4 =  data.list[i].dt;
-                            let temp4 =  data.list[i].main.temp;
-                            let humd4 =  data.list[i].main.humidity;
-                            let icon4 =  data.list[i].weather[i].icon;
-                            console.log("4: ", i, date4, temp4, humd4, icon4);
-                        }
+                    if (datePlus4 > data.list[i].dt) {
+                        let date4 =  data.list[i].dt;
+                        let temp4 =  data.list[i].main.temp;
+                        let humd4 =  data.list[i].main.humidity;
+                        let icon4 =  data.list[i].weather[0].icon;
                     }
-                    if (d5 = 0) {
-                        if (datePlus5 > data.list[i].dt) {
-                            d5++;
-                            let date5 =  data.list[i].dt;
-                            let temp5 =  data.list[i].main.temp;
-                            let humd5 =  data.list[i].main.humidity;
-                            let icon5 =  data.list[i].weather[i].icon;
-                            console.log("5: ", i, date5, temp5, humd5, icon5);
-                        }
-                    }                
+                    if (datePlus5 > data.list[i].dt) {
+                        let date5 =  data.list[i].dt;
+                        let temp5 =  data.list[i].main.temp;
+                        let humd5 =  data.list[i].main.humidity;
+                        let icon5 =  data.list[i].weather[0].icon;
+                    }
+                    if (i = data.list.length) {
+                        console.log("1: ", date1, temp1, humd1, icon1);
+                        console.log("2: ", date2, temp2, humd2, icon2);
+                        console.log("3: ", date3, temp3, humd3, icon3);
+                        console.log("4: ", date4, temp4, humd4, icon4);
+                        console.log("5: ", date5, temp5, humd5, icon5);
+                    }             
                 }
+               
             });
         } else {
             alert("Error: " + response.statusText);

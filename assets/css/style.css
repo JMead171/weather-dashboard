@@ -95,6 +95,18 @@ h1 {
   box-shadow: 2px 2px var(--dark);
  }
 
+.cityName{
+  display: inline;
+}
+
+.date {
+  display: inline;
+}
+
+/*.day-forecast {
+  display: inline-block;
+} */
+
 .icon-danger {
   color: rgb(255, 70, 70);
 }
