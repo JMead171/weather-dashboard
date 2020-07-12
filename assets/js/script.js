@@ -21,6 +21,7 @@ let uvEl = document.querySelector(".UV");
 let cityHistoryArr = [];
 let update = 0;
 
+// Get current weather
 let getWeather = function(city) {
     let apiUrl = apiUrlAddress + city + apiKey;
     fetch(apiUrl).then(function(response) {
@@ -30,6 +31,7 @@ let getWeather = function(city) {
                 update = 1;
                 getSearchHistory(update);
                 update = 0;
+
                 // get current date from fetch api
                 let dateToday = data.dt;
                 let displayDate = moment.unix(dateToday).format("M/D/YYYY");
@@ -64,16 +66,17 @@ let getWeather = function(city) {
     });
 };
 
+// Get UV index
 let getUVindex = function(lat, lon) {
     let apiUrluv = apiUVlat + lat + apiUVlon + lon;
     fetch(apiUrluv).then(function(response) {
         if (response.ok) {
             response.json().then(function(data) {    
                 let uvIndex =  data.value;
-                if (uvIndex > 10) {
+                if (uvIndex > 8) {
                     uvEl.innerHTML = "UV Index " + "<span class='danger'>" + uvIndex + "</span>";
                 } else {
-                    if (uvIndex > 6) {
+                    if (uvIndex > 5) {
                         uvEl.innerHTML = "UV Index " + "<span class='warning'>" + uvIndex + "</span>";
                     } else {
                         uvEl.innerHTML = "UV Index" + "<span class='normal'>" + uvIndex + "</span>";
@@ -89,6 +92,7 @@ let getUVindex = function(lat, lon) {
     });
 }; 
 
+//Get 5 day forecast
 let get5day = function(lat, lon, dateToday) {
     let apiUrl5day = api5day + lat + api5daylon + lon + api5daykey;
     fetch(apiUrl5day).then(function(response) {
@@ -103,7 +107,6 @@ let get5day = function(lat, lon, dateToday) {
                 // initialize
                 let forecastEl = document.querySelector(".forecast");
                 forecastEl.innerHTML = "5-Day Forecast";                           
-                
                 
                 let d1 = 0, d2 = 0, d3 = 0, d4 = 0, d5 = 0;
                 
@@ -274,8 +277,6 @@ let get5day = function(lat, lon, dateToday) {
     });
 }; 
 
-
-
 // Get city name from input
 var formSubmitHandler = function(event) {
     event.preventDefault();
@@ -289,10 +290,9 @@ var formSubmitHandler = function(event) {
     }
 };
 
-// Get city name from history
+// Get city name from search history
 var formSubmitHistory = function(event) {
     event.preventDefault();
-    console.log(event.target.innerHTML);
 
     var city = event.target.innerHTML;
     if (city) {
@@ -302,7 +302,6 @@ var formSubmitHistory = function(event) {
         alert("Please enter a City");
     }
 };
-
 
 // Load search history
 let getSearchHistory = function(update) {
@@ -360,7 +359,6 @@ let saveSearchHistory = function(city) {
         localStorage.setItem("WDcitySearch", JSON.stringify(cityHistoryArr));
     }
 };
-
 
 getSearchHistory();
 cityFormEl.addEventListener("submit", formSubmitHandler); 

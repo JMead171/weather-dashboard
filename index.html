@@ -19,14 +19,17 @@
       <div class="row">
         <div class="col-3">
             <div class="card">
+              <!-- Input a city -->
               <h3 class="searchCity">Search for a City:</h3>
               <form id="city-form" class="card-body">
                 <input name="cityname" id="cityname" type="text" autofocus="true" class="cityname" autocomplete="off" />
                 <button type="submit" class="btn">Get City</button>
               </form>
+              <!-- History of previous cities -->
               <div id="history-container" class="history-group"></div>
             </div>  
         </div>
+        <!-- Current weather -->
         <div class="col-9 card">
           <h2 class="cityName"></h2>
           <div class="wConditions">
@@ -40,6 +43,7 @@
       </div>
     </div>
 
+    <!-- 5 day forecast -->
     <div class="container">
         <div class="row col-9">
             <h2 class="forecast"></h2>
