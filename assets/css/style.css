@@ -1,7 +1,7 @@
 :root {
   --primary: #ffffff;
   --dark: #111111;
-  --button: #2196F3;
+  --background: #2196F3;
 }
 
 * {
@@ -96,21 +96,37 @@ h1 {
  }
 
 .cityName{
-  display: inline;
+  display: inline-block;
 }
 
 .date {
-  display: inline;
-}
-
-/*.day-forecast {
   display: inline-block;
-} */
-
-.icon-danger {
-  color: rgb(255, 70, 70);
 }
 
-.icon-success {
-  color: rgb(29, 153, 255);
+.history-group {
+  text-align: left;
+  font-size: 1.0rem;
+  background-color: rgb(243, 239, 239);
+  text-transform: uppercase;
+}
+
+.wConditions {
+  font-size: 1.4rem;
+}
+
+.fore5day {
+  color: var(--primary);
+} 
+
+.danger {
+  background-color: rgb(255, 70, 70);
+  width: 100px;
+}
+
+.warning {
+  background-color: rgb(246, 248, 115);
+}
+
+.normal {
+  color: rgb(141, 202, 252);
 }

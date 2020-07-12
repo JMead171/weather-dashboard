@@ -21,16 +21,16 @@
             <div class="card">
               <h3 class="searchCity">Search for a City:</h3>
               <form id="city-form" class="card-body">
-                <input name="cityname" id="cityname" type="text" autofocus="true" class="cityname" />
+                <input name="cityname" id="cityname" type="text" autofocus="true" class="cityname" autocomplete="off" />
                 <button type="submit" class="btn">Get City</button>
               </form>
-              <div id="history-container" class="row history-group"></div>
+              <div id="history-container" class="history-group"></div>
             </div>  
         </div>
-        <div class="col-9 card justify-content-end">
+        <div class="col-9 card">
           <h2 class="cityName"></h2>
-          <img class="cwIcon"></img>
           <div class="wConditions">
+            <br>
             <p class="temp"></p>
             <p class="humid"></p>
             <p class="wind"></p>
@@ -38,20 +38,20 @@
           </div>
         </div>
       </div>
-
-      <div class="row col-9">
-        <h3>5-Day Forecast:</h3>
-      </div>
-      <div class="row col-9 card"></div>
-          <div id="day1" class="d-inline day-forecast"></div>
-          <div id="day2" class="d-inline day-forecast"></div>
-          <div id="day3" class="d-inline day-forecast"></div>
-          <div id="day4" class="d-inline day-forecast"></div>
-          <div id="day5" class="d-inline day-forecast"></div>
-      </div>
     </div>
 
-
+    <div class="container">
+        <div class="row col-9">
+            <h2 class="forecast"></h2>
+        </div>
+        <div class="row justify-content-between">
+            <div id="day1" class="col-2 bg-primary fore5day"></div>
+            <div id="day2" class="col-2 bg-primary fore5day"></div>
+            <div id="day3" class="col-2 bg-primary fore5day"></div>
+            <div id="day4" class="col-2 bg-primary fore5day"></div>
+            <div id="day5" class="col-2 bg-primary fore5day"></div>
+        </div>
+    </div>
 
   <!-- Script file -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
