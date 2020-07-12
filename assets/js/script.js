@@ -9,7 +9,7 @@ const api5daylon = "&lon=";
 const api5daykey = "&appid=93da93c3fcfd7a2c52246c945a8f72df";
 
 let cityFormEl = document.querySelector("#city-form");
-let searchHistoryEl = document.querySelector("#history-container");
+let searchBtnEl = document.querySelector("#history-container");
 let cityInputEl = document.querySelector("#cityname");
 
 let cityNameEl = document.querySelector(".cityName");
@@ -28,15 +28,17 @@ let getWeather = function(city) {
             response.json().then(function(data) {    
                 saveSearchHistory(city);
                 update = 1;
-                //getSearchHistory(update);
+                getSearchHistory(update);
+                update = 0;
                 // get current date from fetch api
                 let dateToday = data.dt;
                 let displayDate = moment.unix(dateToday).format("M/D/YYYY");
              
                 // City, date and weather icon
                 let icode = data.weather[0].icon;
+                let displayCityName = city.toUpperCase();
                 cityNameEl.innerHTML = "";
-                cityNameEl.innerHTML = city + " (" + displayDate + ") " + "<img src=./assets/images/" + icode + ".png>";
+                cityNameEl.innerHTML = displayCityName + " (" + displayDate + ") " + "<img src=./assets/images/" + icode + ".png>";
 
                 // temp
                 let fahrtemp = Math.floor((((data.main.temp - 273.15) * 1.8000) + 32));
@@ -63,7 +65,6 @@ let getWeather = function(city) {
 };
 
 let getUVindex = function(lat, lon) {
-    console.log(lat, lon);
     let apiUrluv = apiUVlat + lat + apiUVlon + lon;
     fetch(apiUrluv).then(function(response) {
         if (response.ok) {
@@ -73,9 +74,9 @@ let getUVindex = function(lat, lon) {
                     uvEl.innerHTML = "UV Index " + "<span class='danger'>" + uvIndex + "</span>";
                 } else {
                     if (uvIndex > 6) {
-                        uvEl.classList = "UV Index " + "<span class='warning'>" + uvIndex + "</span>";
+                        uvEl.innerHTML = "UV Index " + "<span class='warning'>" + uvIndex + "</span>";
                     } else {
-                        uvEl.classList = "UV Index" + "<span class='normal'>" + uvIndex + "</span>";
+                        uvEl.innerHTML = "UV Index" + "<span class='normal'>" + uvIndex + "</span>";
                     }
                 }
             });
@@ -289,13 +290,14 @@ var formSubmitHandler = function(event) {
 };
 
 // Get city name from history
-var formSubmitHistory = function() {
-    //event.preventDefault();
-    console.log(searchHistoryEl.value);
-    var city = searchHistoryEl.value;
+var formSubmitHistory = function(event) {
+    event.preventDefault();
+    console.log(event.target.innerHTML);
+
+    var city = event.target.innerHTML;
     if (city) {
+        cityInputEl.value = "";
         getWeather(city);
-        //cityInputEl.value = "";
     } else {
         alert("Please enter a City");
     }
@@ -303,21 +305,22 @@ var formSubmitHistory = function() {
 
 
 // Load search history
-let getSearchHistory = function() {
+let getSearchHistory = function(update) {
     if ("WDcitySearch" in localStorage) {
         let retrievedData = localStorage.getItem("WDcitySearch");
         cityHistoryArr = JSON.parse(retrievedData);
-        let i = 0;
-        if (update === 1) { 
-            let list = document.getElementById("#history-container");
-            while (list.hasChildNodes()) {  
-                list.removeChild(list.firstChild);
+        if (update === 1) {
+            let parent = document.querySelector('#history-container');
+            while (parent.firstChild) {
+                parent.removeChild(parent.firstChild);
             }
         }
+        let i =0;
         while (i < cityHistoryArr.length) {
             let loadcity = cityHistoryArr[i]
             let loadcityEl = document.querySelector('#history-container');
-            let cityInput = document.createElement('p');
+            let cityInput = document.createElement('button');
+            cityInput.classList.add('btn-hist');
             loadcityEl.appendChild(cityInput);
             cityInput.innerHTML = loadcity;
             i++;
@@ -332,19 +335,27 @@ let saveSearchHistory = function(city) {
     if ("WDcitySearch" in localStorage) {
         let retrievedData = localStorage.getItem("WDcitySearch");
         cityHistoryArr = JSON.parse(retrievedData);
-        console.log("array length ", cityHistoryArr.length);
+
+        let i =0;
+        while (i < cityHistoryArr.length) {
+            let cityUP = city.toUpperCase();
+            let arrUP = cityHistoryArr[i].toUpperCase();
+            if (cityUP === arrUP) {
+                return;
+            } else {
+                i++;
+            }
+        }
+           
         if (cityHistoryArr.length <= 4) {
-            console.log("unshift city");
             cityHistoryArr.unshift(city);
             localStorage.setItem("WDcitySearch", JSON.stringify(cityHistoryArr));
         } else {
-            console.log("pop city");
             cityHistoryArr.unshift(city);
             cityHistoryArr.pop(city);
             localStorage.setItem("WDcitySearch", JSON.stringify(cityHistoryArr));
         }
     } else {
-        console.log("1st time");
         cityHistoryArr.push(city);
         localStorage.setItem("WDcitySearch", JSON.stringify(cityHistoryArr));
     }
@@ -353,4 +364,4 @@ let saveSearchHistory = function(city) {
 
 getSearchHistory();
 cityFormEl.addEventListener("submit", formSubmitHandler); 
-searchHistoryEl.addEventListener("click", formSubmitHistory);
+searchBtnEl.addEventListener("click", formSubmitHistory);
