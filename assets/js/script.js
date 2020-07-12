@@ -1,10 +1,10 @@
-const apiUrlAddress = "http://api.openweathermap.org/data/2.5/weather?q=";
+const apiUrlAddress = "https://api.openweathermap.org/data/2.5/weather?q=";
 const apiKey = ",US&appid=93da93c3fcfd7a2c52246c945a8f72df";
-const apiUVlat = "http://api.openweathermap.org/data/2.5/uvi?appid=93da93c3fcfd7a2c52246c945a8f72df&lat=";
+const apiUVlat = "https://api.openweathermap.org/data/2.5/uvi?appid=93da93c3fcfd7a2c52246c945a8f72df&lat=";
 const apiUVlon = "&lon=";
-const apiIcon = "http://openweathermap.org/img/wn/" 
+const apiIcon = "https://openweathermap.org/img/wn/" 
 const apiIcode = ".png";
-const api5day = "http://api.openweathermap.org/data/2.5/forecast?lat=";
+const api5day = "https://api.openweathermap.org/data/2.5/forecast?lat=";
 const api5daylon = "&lon=";
 const api5daykey = "&appid=93da93c3fcfd7a2c52246c945a8f72df";
 
